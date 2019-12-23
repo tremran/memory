@@ -15,6 +15,7 @@ git clone https://github.com/tremran/memory.git
 ```
 2. Générer les dépendances
 ```
+cd memory
 composer install
 ```
 3. Renommer le fichier config/config.example.ini en config.ini et spécifier les informations de BDD
@@ -26,7 +27,7 @@ mysql -uDBUSER -pDBPASSWORD create database memory
 ```
 vendor\bin\doctrine orm:schema-tool:create
 ```
-6. Lancer le serveur PHP, vous pouvez, par exemple, utiliser le serveur interne de PHP en spécifiant le fichier "front/index.php" comme contrôleur
+6. Lancer le serveur interne de PHP en spécifiant le fichier "front/index.php" comme contrôleur
 ```
 php -S localhost:8001 front/index.php
 ```
