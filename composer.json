@@ -1,0 +1,9 @@
+{
+    "require": {
+        "doctrine/orm": "^2.7",
+        "doctrine/annotations": "^1.8"
+    },
+    "autoload": {
+        "psr-4": {"": "src/classes"}
+    }
+}
