@@ -1,5 +1,14 @@
 <?php 
 
+/*
+Ce fichier sert :
+ - de routeur (il connait les URI du site )
+ - de controlleur (il connait la logique du jeu).
+
+Dans projet plus volumineux, il est conseillé de séparer ces deux fonctions 
+*/
+
+
 include __DIR__ . '/../src/include.php'; 
 
 use Memoire\MemoireGame;
@@ -17,14 +26,13 @@ foreach ($dossier_front as $folder)
 		$estRessource = true;
 	}
 }
-	
+
 if (! $estRessource) 
-{
-	include __DIR__ . '/../src/vues/_header.php';
+{ // on ne demande pas une ressource js, css ou image, donc on affiche une page
 	switch ($request) {
 		case '' :
 		case '/' :
-			// crée une nouvelle partie
+			// récupère les meilleurs score
 			$dqlQuery = 'Select g FROM Memoire\MemoireGame g where g.pairCount = :pair_count AND g.time IS NOT NULL ORDER BY g.time ASC';
 			$query = $entityManager->createQuery($dqlQuery);
 			$query->setParameter('pair_count', $config['nb_paires']);
@@ -32,7 +40,9 @@ if (! $estRessource)
 
 			$gameList = $query->getResult();
 
+			include __DIR__ . '/../src/vues/_header.php';
 			require __DIR__ . '/../src/vues/home.php';
+			include __DIR__ . '/../src/vues/_footer.php';
 			break;
 		case '/game' :
 			$gameId = uniqid();
@@ -41,7 +51,9 @@ if (! $estRessource)
 			$entityManager->persist($game);
 			$entityManager->flush();
 
+			include __DIR__ . '/../src/vues/_header.php';
 			require __DIR__ . '/../src/vues/game.php';
+			include __DIR__ . '/../src/vues/_footer.php';
 			break;
 				
 		case '/game/save' :
@@ -49,22 +61,21 @@ if (! $estRessource)
 			$gameId = $_REQUEST['id'];
 			$time = $_REQUEST['time'];
 
-			// crée une nouvelle partie
+			// met à jour la partie avec le temps du joueur
 			$game = $entityManager->getRepository('Memoire\MemoireGame')->findOneBy(['gameId' => $gameId]);
 			$game->setTime($time);
 
 			$entityManager->flush();
 
-			break;
-		case '/high-scores' :
-			require __DIR__ . '/../src/vues/highscores.php';
+
 			break;
 		default:
 			http_response_code(404);
+			include __DIR__ . '/../src/vues/_header.php';
 			require __DIR__ . '/../src/vues/404.php';
+			include __DIR__ . '/../src/vues/_footer.php';
 			break;
 	}
-	include __DIR__ . '/../src/vues/_footer.php';
 }
 else 
 {

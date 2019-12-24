@@ -7,7 +7,7 @@
 * MySQL
 
 
-## Comment jouer en 8 étapes
+## Comment jouer en 9 étapes
 
 1. Cloner le dossier
 ```
@@ -27,9 +27,13 @@ mysql -uDBUSER -pDBPASSWORD create database memory
 ```
 vendor\bin\doctrine orm:schema-tool:create
 ```
-6. Lancer le serveur interne de PHP en spécifiant le fichier "front/index.php" comme contrôleur
+6. Générer le fichier css
+```
+php .\bin\generate_css.php
+```
+7. Lancer le serveur interne de PHP en spécifiant le fichier "front/index.php" comme contrôleur
 ```
 php -S localhost:8001 front/index.php
 ```
-7. Dans un navigateur accéder à http://localhost:8001
-8. Have fun !
+8. Dans un navigateur accéder à http://localhost:8001
+9. Have fun !

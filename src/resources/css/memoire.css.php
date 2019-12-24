@@ -1,7 +1,14 @@
 <?php 
 
-header("Content-type: text/css");
-include __DIR__ . '/../../src/include.php';
+include __DIR__ . '/../../include.php';
+
+use Memoire\MemoireDeck;
+/*
+ générer du css permet d'utiliser les principes de codage dans le css et par exemple 
+d'avoir accès à des variables définies en configuration
+*/
+
+$conteneurWidth = $config['taille_ligne'] * ($config['image_largeur_px'] + 2.5 * $config['image_taille_margin']) + 4;
 
 ?>
 
@@ -10,7 +17,7 @@ include __DIR__ . '/../../src/include.php';
 }
 
 #conteneur {
-	width:<?php echo ($config['taille_ligne'] * ($config['image_largeur_px'] + 2.5 * $config['image_taille_margin']) + 4); ?>px;
+	width:<?php echo $conteneurWidth; ?>px;
 	margin:auto;
 }
 
@@ -37,13 +44,11 @@ include __DIR__ . '/../../src/include.php';
 	margin:auto;
 	border:1px solid black;
 	padding: 1px;
-	height; 15px;
 	margin-top:5px;
 }
 
 #progress {
 	background-color:red;
-	width:25%;
 }
 
 .carte {
@@ -56,10 +61,9 @@ include __DIR__ . '/../../src/include.php';
 }
 
 
-
-<?php for($i = 0; $i < $config['nb_paires'] ; $i++): ?>
-	.carte-<?php echo $i; ?> {
-		background-image:url("/img/cards.png");
-		background-position:0 -<?php echo ($config['image_hauteur_px'] * $i); ?>px;
-	}
+<?php for($i = 0; $i < MemoireDeck::MAX_NUMBER_OF_PAIR ; $i++): ?>
+.carte-<?php echo $i; ?> {
+    background-image:url("/img/cards.png");
+    background-position:0 -<?php echo ($config['image_hauteur_px'] * $i); ?>px;
+}
 <?php endfor; ?>
