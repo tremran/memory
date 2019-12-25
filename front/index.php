@@ -42,7 +42,6 @@ if (! $estRessource)
 			$query = $entityManager->createQuery($dqlQuery);
 			$query->setParameter('pair_count', $config['nb_paires']);
 			$query->setMaxResults(10);
-var_dump($query->getSQL());
 			$gameList = $query->getResult();
 
 			include __DIR__ . '/../src/vues/_header.php';

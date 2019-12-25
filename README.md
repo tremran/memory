@@ -27,9 +27,13 @@ mysql -uDBUSER -pDBPASSWORD -e"create database memory"
 ```
 vendor\bin\doctrine orm:schema-tool:create
 ```
-6. Générer le fichier css
+6. Générer le fichier css en PHP
 ```
 php .\bin\generate_css.php
+```
+Ou en utilisant sass
+```
+.\bin\sass_generate
 ```
 7. Lancer le serveur interne de PHP en spécifiant le fichier "front/index.php" comme contrôleur
 ```

@@ -1,0 +1,1 @@
+sass %~dp0\..\src\resources\css\memoire.scss %~dp0\..\front\css\memoire.css

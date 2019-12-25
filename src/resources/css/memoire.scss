@@ -1,0 +1,55 @@
+
+* {
+	box-sizing:border-box
+}
+
+#conteneur {
+	width:435px;
+	margin:auto;
+}
+
+
+#titre {
+	text-align:center;
+	background-color:lightgray;
+	font-size:20px;
+	padding:0.5em;
+}
+
+#grille {
+	background-color:#f48fb1;
+	padding:3px;
+	padding-bottom:7px;
+}
+
+#chrono {
+	float:right;
+}
+
+#progressbar {
+	width:50%;
+	margin:auto;
+	border:1px solid black;
+	padding: 1px;
+	margin-top:5px;
+}
+
+#progress {
+	background-color:red;
+}
+
+.carte {
+	margin-left:3px;
+	margin-top:3px;
+	background-color:#8E8E8E;
+	width:100px;
+	height:100px;
+	display:inline-block;
+}
+
+@for $i from 1 through 6 {
+    .carte-#{$i} {
+        background-image:url("/img/cards.png");
+        background-position:-100px * $i;
+    }
+}
