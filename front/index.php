@@ -52,7 +52,10 @@ if (! $estRessource)
 			$gameId = uniqid();
 			// crée une nouvelle partie
 			$game = new MemoireGame($gameId, $config['nb_paires']);
+
+			//Pour sauvegarder une nouvelle entité avec doctrine il faut d'abord persister l'entité
 			$entityManager->persist($game);
+			// Fait l'insertion en base de données
 			$entityManager->flush();
 
 			include __DIR__ . '/../src/vues/_header.php';
@@ -70,6 +73,7 @@ if (! $estRessource)
 			$game = $entityManager->getRepository('Memoire\MemoireGame')->findOneBy(['gameId' => $gameId]);
 			$game->setTime($time);
 
+			// ici pas besoin de persiste l'entité car c'est doctrine qui l'a récupéré
 			$entityManager->flush();
 			break;
 		default:
