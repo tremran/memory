@@ -2,9 +2,11 @@ var first_card_id = -1;
 var first_card_domelement = -1;
 var image_click_allowed = true;
 
+document.addEventListener("DOMContentLoaded", function() {
 [].forEach.call(document.querySelectorAll('.carte'), function(el) {
     el.addEventListener('click', imageClick);
 })
+});
 
 function updateTimer() {
     var elapsedTimeSeconds = getElapsedTime();
@@ -94,9 +96,11 @@ function checkGameIsOver()
         var httpRequest = new XMLHttpRequest();
         httpRequest.onreadystatechange = function(data) {
             //redirige sur la page d'accueil
-            document.location = '/';
+            if (httpRequest.readyState === XMLHttpRequest.DONE) { 
+                document.location = '/';
+            }
         };
-        httpRequest.open("POST", '/game/save');
+        httpRequest.open("POST", '/game/save', false);
         httpRequest.setRequestHeader(
             "Content-Type",
             "application/x-www-form-urlencoded",

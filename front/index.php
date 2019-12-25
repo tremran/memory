@@ -16,14 +16,19 @@ use Memoire\MemoireGame;
 $request = $_SERVER['REQUEST_URI'];
 $request = explode('?', $request)[0];
 
-$dossier_front = ['css', 'img', 'js'];
+$dossier_front = ['css' => 'text/css', 'img' => null, 'js' => 'text/javascript'];
 
 $estRessource = false;
-foreach ($dossier_front as $folder)
+$finalTypeMime = null;
+foreach ($dossier_front as $folder => $typeMime)
 {
 	if (substr($request, 1, strlen($folder)) == $folder)
 	{
 		$estRessource = true;
+		if (! is_null($typeMime))
+		{
+			$finalTypeMime = $typeMime;
+		}
 	}
 }
 
@@ -37,7 +42,7 @@ if (! $estRessource)
 			$query = $entityManager->createQuery($dqlQuery);
 			$query->setParameter('pair_count', $config['nb_paires']);
 			$query->setMaxResults(10);
-
+var_dump($query->getSQL());
 			$gameList = $query->getResult();
 
 			include __DIR__ . '/../src/vues/_header.php';
@@ -54,6 +59,7 @@ if (! $estRessource)
 			include __DIR__ . '/../src/vues/_header.php';
 			require __DIR__ . '/../src/vues/game.php';
 			include __DIR__ . '/../src/vues/_footer.php';
+
 			break;
 				
 		case '/game/save' :
@@ -66,8 +72,6 @@ if (! $estRessource)
 			$game->setTime($time);
 
 			$entityManager->flush();
-
-
 			break;
 		default:
 			http_response_code(404);
@@ -79,5 +83,9 @@ if (! $estRessource)
 }
 else 
 {
+	if (! is_null($finalTypeMime))
+	{
+		header('content-type: ' . $finalTypeMime);
+	}
 	include __DIR__ . $request;
 }

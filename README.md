@@ -18,10 +18,10 @@ git clone https://github.com/tremran/memory.git
 cd memory
 composer install
 ```
-3. Renommer le fichier config/config.example.ini en config.ini et spécifier les informations de BDD
+3. Renommer le fichier src/config/config.example.ini en config.ini et spécifier les informations de BDD
 4. Dans mysql créer la base de donnée, par exemple :
 ```
-mysql -uDBUSER -pDBPASSWORD create database memory
+mysql -uDBUSER -pDBPASSWORD -e"create database memory"
 ```
 5. Depuis la console générer le schéma de la base de données :
 ```
